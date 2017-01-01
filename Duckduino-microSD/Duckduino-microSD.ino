@@ -25,6 +25,7 @@ void setup() {
       char m = myFile.read();
       if (m == '\n') {
         Line(line);
+        delay(defaultdelay);
         line = "";
       }
       else if ((int) m != 13) {
@@ -35,6 +36,8 @@ void setup() {
     myFile.close();
   }
   Keyboard.end();
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 
 void Line(String l) {
@@ -58,9 +61,7 @@ void Line(String l) {
     int delaytime = l.substring(space_1 + 1).toInt();
     delay(delaytime);
   }
-  else if (current == "REM"){
-    return;
-  }
+  else if (current == "REM");
   else if (current == "REPLAY") {
     int repeatcounter = l.substring(space_1 + 1).toInt();
     for (int i = 0; i <= repeatcounter; i++) {
@@ -83,7 +84,6 @@ void Line(String l) {
     }
   }
   Keyboard.releaseAll();
-  delay(defaultdelay);
 }
 void Press(String b) {
   Press(b, "");
@@ -218,6 +218,6 @@ void Press(String b, String prev) {
 }
 
 void loop() {
-  // nothing happens after setup
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 

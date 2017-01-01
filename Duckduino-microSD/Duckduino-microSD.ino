@@ -42,8 +42,10 @@ void Line(String l) {
   String current = l.substring(0, space_1);
   String prev;
   if (first) {
+    first = false;
     if (current == "DEFAULT_DELAY" || current == "DEFAULTDELAY") {
       defaultdelay = l.substring(space_1 + 1).toInt();
+      return;
     }
   }
   if (space_1 == -1) {
@@ -56,7 +58,9 @@ void Line(String l) {
     int delaytime = l.substring(space_1 + 1).toInt();
     delay(delaytime);
   }
-  else if (current == "REM");
+  else if (current == "REM"){
+    return;
+  }
   else if (current == "REPLAY") {
     int repeatcounter = l.substring(space_1 + 1).toInt();
     for (int i = 0; i <= repeatcounter; i++) {
@@ -68,8 +72,7 @@ void Line(String l) {
     while (remain.length() > 0) {
       int latest_space = remain.indexOf(" ");
       if (latest_space == -1) {
-        Press(remain, prev);
-        prev = remain;
+        Press(remain);
         remain = "";
       }
       else {
@@ -80,7 +83,6 @@ void Line(String l) {
     }
   }
   Keyboard.releaseAll();
-  first = false;
   delay(defaultdelay);
 }
 void Press(String b) {

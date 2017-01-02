@@ -5,10 +5,10 @@
   GIT:
           https://github.com/Seytonic/Duckduino-microSD
 */
+#define DEBUG
 
 
 #include <SD.h>
-
 
 boolean first = true;
 int defaultdelay = 0;
@@ -36,8 +36,10 @@ void setup() {
     myFile.close();
   }
   Keyboard.end();
+#ifdef DEBUG
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
+#endif
 }
 
 void Line(String l) {
@@ -223,13 +225,26 @@ void Press(String b, String prev) {
   else if (b.equals("SPACE")) {
     Keyboard.press(' ');
   }
+#ifdef DEBUG
   else {
     Serial.begin(9600);
     Serial.println("unrecognised command \"" + b + "\"");
   }
+#endif
 }
 
-void loop() {
+#ifdef DEBUG
+void blink() {
   digitalWrite(LED_BUILTIN, HIGH);
+  delay(1000);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(1000);
+}
+#endif
+
+void loop() {
+#ifdef DEBUG
+  blink();  
+#endif
 }
 

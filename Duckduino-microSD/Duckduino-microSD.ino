@@ -97,12 +97,12 @@ void Press(String b, String prev) {
   else if (b.equals("DRIVERDELAY")) {
     while ((int(keyboard_leds) & 2) != 2) {
       Keyboard.press(KEY_CAPS_LOCK);
-      delay(100);
+      delay(10);
       Keyboard.releaseAll();
     }
     if ((int(keyboard_leds) & 2) == 2) {
       Keyboard.press(KEY_CAPS_LOCK);
-      delay(100);
+      delay(10);
       Keyboard.releaseAll();
     }
   }
@@ -212,8 +212,20 @@ void Press(String b, String prev) {
     Keyboard.press(KEY_LEFT_SHIFT);
     Keyboard.press(KEY_F10);
   }
+  else if (b.equals("CTRL-ALT")) {
+    Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(KEY_LEFT_ALT);
+  }
+  else if (b.equals("CTRL-SHIFT")) {
+    Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(KEY_LEFT_SHIFT);
+  }
   else if (b.equals("SPACE")) {
     Keyboard.press(' ');
+  }
+  else {
+    Serial.begin(9600);
+    Serial.println("unrecognised command \"" + b + "\"");
   }
 }
 

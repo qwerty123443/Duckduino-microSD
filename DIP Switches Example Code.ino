@@ -109,8 +109,7 @@ void Press(String b)
 {
   if(b.length() == 1)
   {
-    char c = b[0];
-    Keyboard.press(c);
+    Keyboard.press((char) b[0]);
   }
   else if (b.equals("ENTER"))
   {
